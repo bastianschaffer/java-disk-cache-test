@@ -11,7 +11,7 @@ public class TestDiskCache {
     private CacheAccess<String, Set<String>> jcsCache = null;
     private final int cachedCriteriaAmount = 100;
     private final int idsPerCriterion = 50;
-    private final boolean fillCache = false;
+    private final boolean fillCache = true;
     private HashMap<String, Set<String>> testData;
 
     @Test
