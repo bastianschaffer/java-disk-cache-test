@@ -9,9 +9,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TestDiskCache {
 
     private CacheAccess<String, Set<String>> jcsCache = null;
-    private final int cachedCriteriaAmount = 100;
-    private final int idsPerCriterion = 50;
-    private final boolean fillCache = false;
+    private final int cachedCriteriaAmount = 11;
+    private final int idsPerCriterion = 1;
+    private final boolean fillCache = true;
     private HashMap<String, Set<String>> testData;
 
     @Test
@@ -39,7 +39,8 @@ public class TestDiskCache {
             Set<String> foundValues = jcsGet(key);
             long endTime = System.nanoTime();
 
-            assertEquals(valueSet, foundValues);
+            //assertEquals(valueSet, foundValues);
+            System.out.println("found for key [" + key + "]: " + foundValues);
              totalTime += (float)(endTime - startTime) / 1000000.0;
         }
         System.out.printf("It took on average %fms to get an entry%n", totalTime / cachedCriteriaAmount);
@@ -50,7 +51,6 @@ public class TestDiskCache {
         for(int i = 0; i < cachedCriteriaAmount; i++){
             String key = keyTemplate + i;
             Set<String> valueSet = testData.get(key);
-
             jcsPut(key, valueSet);
         }
     }
@@ -64,7 +64,7 @@ public class TestDiskCache {
             String valueTemplate = "val-";
             Set<String> valueSet = new HashSet<>();
             for(int j = 0; j < idsPerCriterion; j++){
-                valueSet.add(valueTemplate + (i) );
+                valueSet.add(valueTemplate + (i + j) );
             }
 
             data.put(key, valueSet);
